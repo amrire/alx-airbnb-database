@@ -18,7 +18,7 @@
 
 ### ✅ 1NF: First Normal Form
 
-* **Atomicity**: All attributes hold single values (e.g., `first_name`, `email`, `pricepernight`).
+* **Atomicity**: All attributes hold single values (e.g., `first_name`, `email`, `price_per_night`).
 * **No repeating groups**: Each field holds only one value per row.
 
 ✅ **Result**: All tables meet 1NF.
@@ -57,7 +57,7 @@
 | Case                                                     | Concern                                                                                    | Addressed?   |
 | -------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------------ |
 | `host_id` in Property                                    | References User → No derived or redundant info stored                                      | ✅            |
-| `pricepernight` in Property vs. `total_price` in Booking | total\_price is computed but stored for historical consistency (denormalization by design) | ⚠ Acceptable |
+| `price_per_night` in Property vs. `total_price` in Booking | total\_price is computed but stored for historical consistency (denormalization by design) | ⚠ Acceptable |
 | `role` in User                                           | ENUM type; normalized enough unless expecting a Role table                                 | ✅            |
 | Messages                                                 | sender and recipient both reference User → correct design for messaging                    | ✅            |
 

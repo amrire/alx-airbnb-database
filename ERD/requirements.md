@@ -63,7 +63,7 @@ This document outlines the database requirements for an Airbnb-like booking plat
 * `property_id`: UUID (PK)
 * `host_id`: FK → User(user\_id)
 * `name`, `description`, `location`: TEXT/VARCHAR, NOT NULL
-* `pricepernight`: DECIMAL, NOT NULL
+* `price_per_night`: DECIMAL, NOT NULL
 * `created_at`: TIMESTAMP
 * `updated_at`: TIMESTAMP, ON UPDATE CURRENT\_TIMESTAMP
 
