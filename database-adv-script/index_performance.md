@@ -51,8 +51,8 @@ CREATE INDEX idx_properties_name ON properties(name);
 ### Before Adding Indexes
 The following query was executed before adding indexes:
 
+#### EXPLAIN ANALYZE
 ```sql
-EXPLAIN ANALYZE
 SELECT 
     users.first_name, users.last_name, bookings.start_date
 FROM 
