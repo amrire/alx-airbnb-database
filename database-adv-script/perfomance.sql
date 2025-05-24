@@ -1,30 +1,13 @@
+-- Write an initial query that retrieves
+-- all bookings along with the user details, property details, and payment details
 
 EXPLAIN ANALYZE
-SELECT 
-  b.booking_id,
-  b.start_date,
-  b.end_date,
-  b.status AS booking_status,
-
-  -- User details
-  u.user_id,
-  u.first_name,
-  u.last_name,
-  u.email,
-
-  -- Property details
-  p.property_id,
-  p.name AS property_name,
-  p.location,
-
-  -- Payment details
-  pay.payment_id,
-  pay.amount,
-  pay.payment_date,
-  pay.payment_method
-
-FROM booking AS b
-JOIN "User" AS u ON b.user_id = u.user_id
-JOIN property AS p ON b.property_id = p.property_id
-LEFT JOIN payment AS pay ON b.booking_id = pay.booking_id
-ORDER BY b.start_date DESC;
+SELECT *
+FROM Booking
+LEFT JOIN [User]
+ON Booking.user_id = [User].user_id
+LEFT JOIN Property
+ON Booking.property_id = Property.property_id
+LEFT JOIN Payment
+ON Payment.booking_id = Booking.booking_id
+WHERE Payment.payment_id IS NOT NULL AND payment_date > '2025-03-10 15:07:26.273'

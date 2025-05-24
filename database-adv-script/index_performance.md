@@ -1,56 +1,32 @@
-## Index Performance Analysis
-<hr>
+# Index Performance Report
 
-### Objective
-<hr>
+## Objective
 
-Evaluate the impact of adding indexes on query performance in the User, Booking, and Property tables.
+This report documents the creation of indexes to optimize query performance on the User, Booking, and Property tables.
 
-### Test Setup
-<hr>
+---
 
-1. Queries were run using EXPLAIN ANALYZE.
-2. Performance measured before and after adding indexes.
-3. Data volume: ~10,000 rows in each table.
+## Identified High-Usage Columns
 
-### Results
-<hr>
+### Booking Table
+- `user_id`, `property_id`, `total_price`: Frequently used in JOIN operations.
+- ``: Commonly used in filtering and ordering by date.
 
-#### Query 1: Fetch Bookings for a Property with a specific location
+### Property Table
+- `location`, `pricepernight`, and `rating`: Often used in WHERE and ORDER BY clauses.
 
-<strong>Before Indexing</strong>:
+### User Table
+- `first_name`: Used in login and lookup operations.
 
-- Execution Time: 41.066 ms
-- Query Plan: Sequential Scan on booking property id
+---
 
-<strong>After Indexing</strong>:
+## Indexes Created
 
-- Execution Time: 46.066 ms
-- Query Plan: Index Scan on booking property id
+Saved in `database_index.sql`:
 
-#### Query 2: Get all bookings for each user.
-
-<strong>Before Indexing</strong>
-
-- Execution Time: 6.774 ms
-- Query Plan: Sequential Scan on User and Booking 
-
-<strong>After Indexing</strong>
-
-- Execution Time: 2.88 ms
-- Query Plan: Sequential Scan  on User and Booking 
-
-
-
-#### Query 3: Get upcoming bookings for a user
-
-<strong>Before Indexing</strong>
-
-- Execution Time: 7.663 ms
-- Query Plan: Sequential Scan on booking
-
-<strong>After Indexing</strong>
-
-- Execution Time: 0.994 ms
-- Query Plan: Index Scan using idx_property_property_id on property p
-
+```sql
+CREATE INDEX property_index ON Property([location], pricepernight, host_id);
+CREATE INDEX user_index ON User(first_name);
+CREATE INDEX booking_index ON Booking(property_id, user_id, total_price);
+CREATE INDEX review_index ON Review(rating);
+```
